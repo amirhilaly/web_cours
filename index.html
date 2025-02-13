@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="AJAX/js/jquery-3.2.1.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="navet-range-bomb" style="display: none;">
+        <input type="range" id="navet" name="navet" min="0" max="5" />
+        <label for="navet">Seuil</label>
+    </div>
+
+    <button id="navet-btn">Navet?</button><br><br><br>
+
+    <form id="add-movie">
+        <label>Nom du film:</label>
+        <input type="text" id="nomFORM" name="nom"><br>
+        <label>Date de sortie:</label>
+        <input type="text" id="dateDeSortieFORM"><br>
+        <label>Realisateur</label>
+        <input type="text" id="realisateurFORM"><br>
+        <label>Note:</label>
+        <input type="number" id="noteFORM"><br>
+        <label>Note du publique:</label>
+        <input type="number" id="notePublicFORM"><br>
+        <label>Compagnie</label>
+        <input type="text" id="compagnieFORM"><br>
+        <label>Description</label>
+        <input type="text" id="descriptionFORM"><br>
+        <label for="origine">Origine:</label>
+        <select id="origineFORM" name="origine" required>
+            <option value="France">France</option>
+            <option value="Angleterre">Angleterre</option>
+            <option value="Belgique">Belgique</option>
+            <option value="Pays-Bas">Pays-Bas</option>
+        </select><br>
+        <label>Lien de l'image</label>
+        <input type="text" id="lienImageFORM"><br>
+
+        <button type="submit">Ajouter le film</button>
+    </form>
+
+    <br><br><br>
+
+    <select name="drop" id="drop">
+        <option value="all">ALL</option>
+        <option value="France">France</option>
+        <option value="Angleterre">Angleterre</option>
+        <option value="Belgique">Belgique</option>
+        <option value="Pays-Bas">Pays-Bas</option>
+    </select>
+
+    <p id="diff"></p>
+
+    </br></br></br></br>
+
+    <button id="load-movies-btn">Charger les films</button>
+    <template id="movie-template">
+        <div class="movie">
+            <p>Nom: <span class="nom">Name</span></p>
+            <p>Date d'sortie: <span class="dateDeSortie">date</span></p>
+            <p>Réalisateur: <span class="realisateur">Name</span></p>
+            <p>Note de la critique: <span class="note">Note</span></p>
+            <p>Note du publique: <span class="notePublic"></span></p>
+            <p>Diff de note: <span class="diffNote"></span></p>
+            <p>Compagnie: <span class="compagnie">Company</span></p>
+            <p>Description: <span class="description">Desc!</span></p>
+            <img class="lienImage">
+            <button class="bomb">Delete</button>
+        </div>
+    </template>
+
+    <button id="load-movies-NAVET">Charger LES NAVETS</button>
+    <template id="movie-navet">
+        <div class="movie">
+            <p>Nom: <span class="nom">Name</span></p>
+            <p>Description: ne mérite pas d'être vue</p>
+            <img class="lienImage">
+        </div>
+    </template>
+
+    <button id="load-movies-CLASSICO">Charger les CLASSIQUES</button>
+    <template id="movie-classic">
+        <div class="movie">
+            <p>Nom: <span class="nom">Name</span></p>
+            <p>Date d'sortie: <span class="dateDeSortie">date</span></p>
+            <p>Réalisateur: <span class="realisateur">Name</span></p>
+            <p>Note de la critique: <span class="note">Note</span></p>
+            <p>Note du publique: <span class="notePublic"></span></p>
+            <p>Compagnie: <span class="compagnie">Company</span></p>
+            <p>Description: <span class="description">Desc!</span></p>
+            <img class="lienImage">
+        </div>
+    </template>
+
+    <div id="movies-list"></div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
