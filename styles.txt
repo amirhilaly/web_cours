@@ -1,0 +1,208 @@
+/* Style général */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1a1a1a, #2c3e50);
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Conteneur principal */
+#movies-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Style pour chaque film */
+.movie {
+    border: 2px solid #444;
+    background: linear-gradient(145deg, #2c3e50, #34495e);
+    padding: 20px;
+    width: 300px;
+    text-align: left;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animation au survol */
+.movie:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Effet de lumière au survol */
+.movie::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+}
+
+.movie:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Style des images */
+.movie img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style du texte */
+.movie p {
+    margin: 8px 0;
+    color: #ddd;
+    font-size: 14px;
+}
+
+/* Mettre le titre du film en valeur */
+.movie h2 {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Boutons dans les films */
+.movie button {
+    background: linear-gradient(145deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.movie button:hover {
+    background: linear-gradient(145deg, #2980b9, #3498db);
+    transform: scale(1.05);
+}
+
+/* Bouton Supprimer */
+.movie button.bomb {
+    background: linear-gradient(145deg, #e74c3c, #c0392b);
+}
+
+.movie button.bomb:hover {
+    background: linear-gradient(145deg, #c0392b, #e74c3c);
+}
+
+/* Bouton Modifier */
+.movie button.edit {
+    background: linear-gradient(145deg, #f39c12, #e67e22);
+}
+
+.movie button.edit:hover {
+    background: linear-gradient(145deg, #e67e22, #f39c12);
+}
+
+/* Formulaire d'ajout et de modification */
+#add-movie,
+#edit-movie-form {
+    background: linear-gradient(145deg, #2c3e50, #34495e);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+    max-width: 500px;
+    text-align: left;
+}
+
+#add-movie label,
+#edit-movie-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fff;
+}
+
+#add-movie input,
+#edit-movie-form input,
+#add-movie select,
+#edit-movie-form select,
+#add-movie textarea,
+#edit-movie-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-size: 14px;
+    background: #34495e;
+    color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+#add-movie input:focus,
+#edit-movie-form input:focus,
+#add-movie select:focus,
+#edit-movie-form select:focus,
+#add-movie textarea:focus,
+#edit-movie-form textarea:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+#add-movie button,
+#edit-movie-form button {
+    background: linear-gradient(145deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    font-weight: bold;
+}
+
+#add-movie button:hover,
+#edit-movie-form button:hover {
+    background: linear-gradient(145deg, #2980b9, #3498db);
+    transform: scale(1.05);
+}
+
+/* Bouton Annuler */
+#cancel-edit {
+    background: linear-gradient(145deg, #95a5a6, #7f8c8d);
+}
+
+#cancel-edit:hover {
+    background: linear-gradient(145deg, #7f8c8d, #95a5a6);
+}
+
+/* Style pour les films classiques et navets */
+.movie[data-type="classic"] {
+    border-left: 5px solid #f1c40f;
+}
+
+.movie[data-type="navet"] {
+    border-left: 5px solid #e74c3c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .movie {
+        width: 100%;
+        max-width: 300px;
+    }
+}

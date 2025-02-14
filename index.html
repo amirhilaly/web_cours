@@ -8,17 +8,40 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="AJAX/js/jquery-3.2.1.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
+
     <div id="navet-range-bomb" style="display: none;">
         <input type="range" id="navet" name="navet" min="0" max="5" />
-        <label for="navet">Seuil</label>
+        <label for="navet">Seuil NAVET</label>
     </div>
 
-    <button id="navet-btn">Navet?</button><br><br><br>
+    <div id="classique-range" style="display: none;">
+        <input type="range" id="classique" name="zzzz" min="0" max="5" />
+        <label for="classicooo">Seuil CLASSIQUE</label>
+    </div>
+    <div style="text-align: center; margin: 20px 0;">
+        <button id="add-film-btn">Ajouter un film?</button>
+        <button id="classique-btn">Classique?</button>
+        <button id="navet-btn">Navet?</button><br><br><br>
+    </div>
 
-    <form id="add-movie">
+    <div class="cube-container">
+        <div class="cube">
+            <div class="cube-face front"></div>
+            <div class="cube-face back"></div>
+            <div class="cube-face right"></div>
+            <div class="cube-face left"></div>
+            <div class="cube-face top"></div>
+            <div class="cube-face bottom"></div>
+        </div>
+    </div>
+
+
+    <form id="add-movie" style="display: none;">
         <label>Nom du film:</label>
         <input type="text" id="nomFORM" name="nom"><br>
         <label>Date de sortie:</label>
@@ -45,6 +68,38 @@
 
         <button type="submit">Ajouter le film</button>
     </form>
+
+    <div id="edit-movie-form" style="display: none;">
+        <h2>Modifier le film</h2>
+        <form id="edit-form">
+            <input type="hidden" id="edit-movie-id" name="id">
+            <label>Nom du film:</label>
+            <input type="text" id="edit-nom" name="nom" required><br>
+            <label>Date de sortie:</label>
+            <input type="text" id="edit-dateDeSortie" name="dateDeSortie" required><br>
+            <label>Réalisateur:</label>
+            <input type="text" id="edit-realisateur" name="realisateur" required><br>
+            <label>Note:</label>
+            <input type="number" id="edit-note" name="note" step="0.1" min="0" max="5" required><br>
+            <label>Note du public:</label>
+            <input type="number" id="edit-notePublic" name="notePublic" step="0.1" min="0" max="5"><br>
+            <label>Compagnie:</label>
+            <input type="text" id="edit-compagnie" name="compagnie" required><br>
+            <label>Description:</label>
+            <textarea id="edit-description" name="description" required></textarea><br>
+            <label>Lien de l'image:</label>
+            <input type="text" id="edit-lienImage" name="lienImage" required><br>
+            <label>Origine:</label>
+            <select id="edit-origine" name="origine" required>
+                <option value="France">France</option>
+                <option value="Angleterre">Angleterre</option>
+                <option value="Belgique">Belgique</option>
+                <option value="Pays-Bas">Pays-Bas</option>
+            </select><br>
+            <button type="submit">Enregistrer</button>
+            <button type="button" id="cancel-edit">Annuler</button>
+        </form>
+    </div>
 
     <br><br><br>
 
@@ -73,10 +128,11 @@
             <p>Description: <span class="description">Desc!</span></p>
             <img class="lienImage">
             <button class="bomb">Delete</button>
+            <button class="edit">Modifier</button>
         </div>
     </template>
 
-    <button id="load-movies-NAVET">Charger LES NAVETS</button>
+
     <template id="movie-navet">
         <div class="movie">
             <p>Nom: <span class="nom">Name</span></p>
@@ -85,7 +141,6 @@
         </div>
     </template>
 
-    <button id="load-movies-CLASSICO">Charger les CLASSIQUES</button>
     <template id="movie-classic">
         <div class="movie">
             <p>Nom: <span class="nom">Name</span></p>

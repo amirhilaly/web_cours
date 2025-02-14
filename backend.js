@@ -14,8 +14,28 @@ app.use(express.json());
 
 const db = new sqlite3.Database('./movies.db');
 
+
+
 app.get('/movies', (req, res) => {
-    db.all("SELECT * FROM movies", [], (err, rows) => {
+    const { origine, noteMin, noteMax } = req.query;
+
+    let sql = "SELECT * FROM movies WHERE 1=1";
+    const params = [];
+
+    if (origine && origine !== "all") {
+        sql += " AND origine = ?";
+        params.push(origine);
+    }
+    if (noteMin) {
+        sql += " AND note >= ?";
+        params.push(parseFloat(noteMin));
+    }
+    if (noteMax) {
+        sql += " AND note <= ?";
+        params.push(parseFloat(noteMax));
+    }
+
+    db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(500).json({ error: err.message });
             return;
@@ -23,6 +43,26 @@ app.get('/movies', (req, res) => {
         res.json(rows);
     });
 });
+
+
+app.put('/movies/:id', (req, res) => {
+    const movieId = req.params.id;
+    const { nom, realisateur, compagnie, dateDeSortie, note, notePublic, description, lienImage, origine } = req.body;
+
+    const sql = `UPDATE movies 
+                 SET nom = ?, realisateur = ?, compagnie = ?, dateDeSortie = ?, note = ?, notePublic = ?, description = ?, lienImage = ?, origine = ?
+                 WHERE id = ?`;
+    const params = [nom, realisateur, compagnie, dateDeSortie, note, notePublic, description, lienImage, origine, movieId];
+
+    db.run(sql, params, function (err) {
+        if (err) {
+            res.status(500).json({ success: false, error: err.message });
+            return;
+        }
+        res.json({ success: true });
+    });
+});
+
 
 app.post('/movies', (req, res) => {
     const { nom, realisateur, compagnie, dateDeSortie, note, notePublic, description, lienImage, origine } = req.body;
