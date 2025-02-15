@@ -17,7 +17,7 @@ const db = new sqlite3.Database('./movies.db');
 
 
 app.get('/movies', (req, res) => {
-    const { origine, noteMin, noteMax } = req.query;
+    const { origine, categorie, noteMax } = req.query;
 
     let sql = "SELECT * FROM movies WHERE 1=1";
     const params = [];
@@ -26,14 +26,21 @@ app.get('/movies', (req, res) => {
         sql += " AND origine = ?";
         params.push(origine);
     }
+
+    if (categorie && categorie !== "standard") {
+        sql += " AND categorie = ?";
+        params.push(categorie);
+    }
+
+    /*
     if (noteMin) {
         sql += " AND note >= ?";
         params.push(parseFloat(noteMin));
-    }
-    if (noteMax) {
+    } else if (noteMax) {
         sql += " AND note <= ?";
         params.push(parseFloat(noteMax));
     }
+    */
 
     db.all(sql, params, (err, rows) => {
         if (err) {
@@ -65,10 +72,10 @@ app.put('/movies/:id', (req, res) => {
 
 
 app.post('/movies', (req, res) => {
-    const { nom, realisateur, compagnie, dateDeSortie, note, notePublic, description, lienImage, origine } = req.body;
-    const sql = `INSERT INTO movies (nom, realisateur, compagnie, dateDeSortie, note, notePublic, description, lienImage, origine) 
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    const params = [nom, realisateur, compagnie, dateDeSortie, note, notePublic, description, lienImage, origine];
+    const { nom, realisateur, compagnie, dateDeSortie, note, notePublic, description, lienImage, origine, categorie } = req.body;
+    const sql = `INSERT INTO movies (nom, realisateur, compagnie, dateDeSortie, note, notePublic, description, lienImage, origine, categorie)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const params = [nom, realisateur, compagnie, dateDeSortie, note, notePublic, description, lienImage, origine, categorie];
 
     db.run(sql, params, function (err) {
         if (err) {

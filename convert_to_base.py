@@ -21,25 +21,37 @@ CREATE TABLE IF NOT EXISTS movies (
     compagnie TEXT,
     origine TEXT,
     description TEXT,
-    lienImage TEXT
+    lienImage TEXT,
+    categorie TEXT
 )
 """)
 
-# Insertion des données
+# Insertion des données avec la catégorie
 for movie in movies:
+    # Définir la catégorie en fonction de la note
+    note = movie.get("note", 0)  # Assurez-vous que la note existe, sinon utilisez 0
+    if note > 4.2:
+        categorie = "classique"
+    elif note < 3:
+        categorie = "navet"
+    else:
+        categorie = "standard"
+
+    # Insertion des données dans la base avec la catégorie
     cursor.execute("""
-    INSERT INTO movies (nom, dateDeSortie, realisateur, note, notePublic, compagnie, origine, description, lienImage)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO movies (nom, dateDeSortie, realisateur, note, notePublic, compagnie, origine, description, lienImage, categorie)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         movie.get("nom"),
         movie.get("dateDeSortie"),
         movie.get("realisateur"),
-        movie.get("note"),
+        note,
         movie.get("notePublic"),
         movie.get("compagnie"),
         movie.get("origine"),
         movie.get("description"),
-        movie.get("lienImage")
+        movie.get("lienImage"),
+        categorie
     ))
 
 # Sauvegarde et fermeture

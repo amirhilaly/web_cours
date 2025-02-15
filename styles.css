@@ -225,7 +225,8 @@ label {
 }
 
 /* Select dropdown */
-#drop {
+#drop,
+#categorie-drop {
     font-family: 'Press Start 2P', cursive;
     font-size: 12px;
     padding: 8px 12px;
@@ -243,13 +244,15 @@ label {
     display: block;
 }
 
-#drop:focus {
+#drop:focus,
+#categorie-drop:focus {
     outline: none;
     box-shadow: 1px 1px 0 #000;
     transform: translateY(2px);
 }
 
-#drop option {
+#drop option,
+#categorie-drop option {
     background: var(--card-bg);
     color: white;
     padding: 8px;

@@ -14,8 +14,6 @@
 <body>
 
 
-
-
     <div id="navet-range-bomb" style="display: none;">
         <input type="range" id="navet" name="navet" min="0" max="5" />
         <label for="navet">Seuil NAVET</label>
@@ -25,11 +23,17 @@
         <input type="range" id="classique" name="zzzz" min="0" max="5" />
         <label for="classicooo">Seuil CLASSIQUE</label>
     </div>
+
+    <!-- ici c mes p'tit boutons :) -->
+
     <div style="text-align: center; margin: 20px 0;">
         <button id="gameBtn" onclick="rediriger()">Click me!</button>
         <button id="add-film-btn">Ajouter un film?</button>
+
+        <!--
         <button id="classique-btn">Classique?</button>
-        <button id="navet-btn">Navet?</button><br><br><br>
+        <button id="navet-btn">Navet?</button><br><br><br> -->
+
     </div>
 
     <div class="cube-container">
@@ -105,6 +109,13 @@
     </div>
 
     <br><br><br>
+
+
+    <select name="categorie-drop" id="categorie-drop">
+        <option value="standard">Standard</option>
+        <option value="classique">Classique</option>
+        <option value="navet">Navet</option>
+    </select>
 
     <select name="drop" id="drop">
         <option value="all">ALL</option>

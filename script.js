@@ -1,4 +1,3 @@
-// Créer un canvas pour les effets
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
 const ctx = canvas.getContext('2d');
@@ -8,12 +7,10 @@ canvas.style.position = 'fixed';
 canvas.style.top = '0';
 canvas.style.left = '0';
 canvas.style.zIndex = '9999';
-canvas.style.pointerEvents = 'none'; // Permettre les clics à travers le canvas
+canvas.style.pointerEvents = 'none';
 
-// Variables pour les particules
 let particles = [];
 
-// Classe pour les particules
 class Particle {
     constructor(x, y, color, velocity, size, life) {
         this.x = x;
@@ -44,7 +41,7 @@ class Particle {
     }
 }
 
-// Fonction pour créer une explosion
+
 function createExplosion(x, y, color) {
     for (let i = 0; i < 50; i++) {
         const velocity = {
@@ -55,7 +52,7 @@ function createExplosion(x, y, color) {
     }
 }
 
-// Fonction pour créer du feu
+
 function createFire(x, y) {
     for (let i = 0; i < 20; i++) {
         const velocity = {
@@ -66,7 +63,7 @@ function createFire(x, y) {
     }
 }
 
-// Fonction pour créer du plasma
+
 function createPlasma(x, y) {
     for (let i = 0; i < 30; i++) {
         const velocity = {
@@ -77,7 +74,7 @@ function createPlasma(x, y) {
     }
 }
 
-// Fonction pour créer de l'électricité
+
 function createElectricity(x, y) {
     for (let i = 0; i < 10; i++) {
         const velocity = {
@@ -88,7 +85,7 @@ function createElectricity(x, y) {
     }
 }
 
-// Animation des particules
+
 function animateParticles() {
     requestAnimationFrame(animateParticles);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -103,30 +100,28 @@ function animateParticles() {
     });
 }
 
-// Démarrer l'animation
+
 animateParticles();
 
-// Ajouter des écouteurs d'événements pour les boutons
 document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', (e) => {
         const rect = button.getBoundingClientRect();
         const x = rect.left + rect.width / 2;
         const y = rect.top + rect.height / 2;
 
-        // Choisir un effet aléatoire
         const effects = [createExplosion, createFire, createPlasma, createElectricity];
         const randomEffect = effects[Math.floor(Math.random() * effects.length)];
         randomEffect(x, y, `hsl(${Math.random() * 360}, 100%, 50%)`);
     });
 });
 
+
+
+
+
+
+
 $(document).ready(function () {
-
-    function getSelectedCountry() {
-        return $('#drop').val();
-    }
-
-    let ready = false;
 
     $('#gameBtn').click(function () {
         window.location.href = "game.html";
@@ -134,10 +129,20 @@ $(document).ready(function () {
 
     $('#navet-btn').click(function () {
         $('#navet-range-bomb').toggle();
+        if ($('#classique-btn').is(':visible')) {
+            $('#classique-btn').hide();
+        } else {
+            $('#classique-btn').toggle();
+        }
     });
 
     $('#classique-btn').click(function () {
         $('#classique-range').toggle();
+        if ($('#navet-btn').is(':visible')) {
+            $('#navet-btn').hide();
+        } else {
+            $('#navet-btn').toggle();
+        }
     });
 
     $('#add-film-btn').click(function () {
@@ -146,16 +151,16 @@ $(document).ready(function () {
 
     $('#load-movies-btn').click(function () {
         const selectedCountry = $('#drop').val();
-        const navetValue = $('#navet').val();
-        const classiqueValue = $('#classique').val();
+        const selectedType = $('#categorie-drop').val();
 
-        let url = `http://localhost:8080/movies?origine=${selectedCountry}`;
 
-        if ($('#navet-range-bomb').is(':visible')) {
-            url += `&noteMax=${navetValue}`;
-        } else if ($('#classique-range').is(':visible')) {
-            url += `&noteMin=4.2`;
-        }
+        let url = `http://localhost:8080/movies?origine=${selectedCountry}&categorie=${selectedType}`;
+
+        //        if ($('#navet-range-bomb').is(':visible')) {
+        //          url += `&noteMax=${navetValue}`;
+        //    } else if ($('#classique-range').is(':visible')) {
+        //      url += `&noteMin=4.2`;
+        //}
 
         $.ajax({
             url: url,
@@ -178,6 +183,7 @@ $(document).ready(function () {
                     $(instance).find('.lienImage').attr('src', movie.lienImage);
                     $(instance).find('.bomb').attr("data-id", movie.id);
 
+                    // a changer
                     if (movie.note >= 4.2) {
                         $(instance).find('.movie')[0].style.border = "3px solid gold";
                     }
@@ -194,8 +200,16 @@ $(document).ready(function () {
 
 
     $(document).on("click", ".edit", function () {
+
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+
         const movieElement = $(this).closest(".movie");
         const movieId = movieElement.find(".bomb").data("id");
+
 
 
 
