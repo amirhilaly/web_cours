@@ -126,6 +126,12 @@ $(document).ready(function () {
         return $('#drop').val();
     }
 
+    let ready = false;
+
+    $('#gameBtn').click(function () {
+        window.location.href = "game.html";
+    });
+
     $('#navet-btn').click(function () {
         $('#navet-range-bomb').toggle();
     });
