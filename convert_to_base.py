@@ -1,15 +1,20 @@
 import json
 import sqlite3
 
-# Charger le fichier JSON
-with open("movies.json", "r", encoding="utf-8") as file:
-    movies = json.load(file)
+# Load the JSON file
+try:
+    with open("movies.json", "r", encoding="utf-8") as file:
+        movies = json.load(file)
+    print(f"Loaded {len(movies)} movies from JSON file.")  # Debug: Print number of movies
+except Exception as e:
+    print("Error loading movies.json:", e)
+    exit()
 
-# Connexion à la base SQLite
+# Connect to the SQLite database
 conn = sqlite3.connect("movies.db")
 cursor = conn.cursor()
 
-# Création de la table
+# Create the table
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS movies (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,11 +30,11 @@ CREATE TABLE IF NOT EXISTS movies (
     categorie TEXT
 )
 """)
+print("Table 'movies' created or already exists.")  # Debug: Confirm table creation
 
-# Insertion des données avec la catégorie
+# Insert data
 for movie in movies:
-    # Définir la catégorie en fonction de la note
-    note = movie.get("note", 0)  # Assurez-vous que la note existe, sinon utilisez 0
+    note = movie.get("note")
     if note > 4.2:
         categorie = "classique"
     elif note < 3:
@@ -37,7 +42,6 @@ for movie in movies:
     else:
         categorie = "standard"
 
-    # Insertion des données dans la base avec la catégorie
     cursor.execute("""
     INSERT INTO movies (nom, dateDeSortie, realisateur, note, notePublic, compagnie, origine, description, lienImage, categorie)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -53,9 +57,9 @@ for movie in movies:
         movie.get("lienImage"),
         categorie
     ))
+    print(f"Inserted movie: {movie.get('nom')}")  # Debug: Print each inserted movie
 
-# Sauvegarde et fermeture
+# Commit and close
 conn.commit()
 conn.close()
-
-print("Base de données créée avec succès !")
+print("Database populated successfully!")  # Debug: Confirm completion
