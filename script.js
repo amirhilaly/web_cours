@@ -35,8 +35,8 @@ class Particle {
     update() {
         this.x += this.velocity.x;
         this.y += this.velocity.y;
-        this.size *= 0.98; // Réduire la taille
-        this.alpha -= 0.02; // Réduire l'opacité
+        this.size *= 0.98;
+        this.alpha -= 0.02;
         this.life--;
     }
 }
@@ -270,8 +270,8 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
                     alert("Film modifié avec succès !");
-                    $('#edit-movie-form').hide(); // Masquer le formulaire
-                    $('#load-movies-btn').click(); // Rafraîchir la liste des films
+                    $('#edit-movie-form').hide();
+                    $('#load-movies-btn').click();
                 } else {
                     alert('Erreur lors de la modification du film : ' + response.error);
                 }
@@ -310,7 +310,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
                     alert("AAAAAH");
-                    $('#add-movie-form')[0].reset(); // Réinitialise le formulaire
+                    $('#add-movie-form')[0].reset();
                 } else {
                     alert('Erreur lors de l\'ajout du film : ' + response.error);
                 }

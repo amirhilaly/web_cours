@@ -16,6 +16,15 @@ const db = new sqlite3.Database('./movies.db');
 
 
 
+app.get('/api', (req, res) => {
+    res.json({ message: 'Hello depuis Vercel !' });
+});
+
+
+module.exports = app;
+
+
+
 app.get('/movies', (req, res) => {
     const { origine, categorie, noteMax } = req.query;
 
