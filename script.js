@@ -1,3 +1,5 @@
+// tout ca c'est pour les particules quand on appuis sur chaque bouton,
+// fait avec chatgpt, je voulais juste rajouter du style.
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
 const ctx = canvas.getContext('2d');
@@ -127,24 +129,6 @@ $(document).ready(function () {
         window.location.href = "game.html";
     });
 
-    $('#navet-btn').click(function () {
-        $('#navet-range-bomb').toggle();
-        if ($('#classique-btn').is(':visible')) {
-            $('#classique-btn').hide();
-        } else {
-            $('#classique-btn').toggle();
-        }
-    });
-
-    $('#classique-btn').click(function () {
-        $('#classique-range').toggle();
-        if ($('#navet-btn').is(':visible')) {
-            $('#navet-btn').hide();
-        } else {
-            $('#navet-btn').toggle();
-        }
-    });
-
     $('#add-film-btn').click(function () {
         $('#add-movie').toggle();
     });
@@ -153,7 +137,8 @@ $(document).ready(function () {
         const selectedCountry = $('#drop').val();
         const selectedType = $('#categorie-drop').val();
 
-
+        // ici je construis l'url qui va servir a faire les requêtes selon les spécifications
+        // donner par l'utilisateur
         let url = `http://localhost:8080/movies?origine=${selectedCountry}&categorie=${selectedType}`;
 
         //        if ($('#navet-range-bomb').is(':visible')) {
@@ -170,6 +155,7 @@ $(document).ready(function () {
                 const template = document.getElementById('movie-template');
                 const container = $('#movies-list');
                 container.empty();
+                // on créer une instance pour afficher les attributs de chaque film
 
                 $.each(moviesData, function (i, movie) {
                     const instance = document.importNode(template.content, true);
@@ -181,6 +167,7 @@ $(document).ready(function () {
                     $(instance).find('.compagnie').text(movie.compagnie);
                     $(instance).find('.description').text(movie.description);
                     $(instance).find('.lienImage').attr('src', movie.lienImage);
+                    $(instance).find('.origineMovie').text(movie.origine);
                     $(instance).find('.bomb').attr("data-id", movie.id);
 
                     // a changer
@@ -198,20 +185,18 @@ $(document).ready(function () {
     });
 
 
-
+    // une p'tite animation fluide pour que ca remonte vers le haut quand on edit
     $(document).on("click", ".edit", function () {
-
         window.scrollTo({
             top: 0,
             left: 0,
             behavior: 'smooth'
         });
 
+
+
         const movieElement = $(this).closest(".movie");
         const movieId = movieElement.find(".bomb").data("id");
-
-
-
 
         $('#edit-movie-id').val(movieId);
         $('#edit-nom').val(movieElement.find('.nom').text());
@@ -222,7 +207,8 @@ $(document).ready(function () {
         $('#edit-compagnie').val(movieElement.find('.compagnie').text());
         $('#edit-description').val(movieElement.find('.description').text());
         $('#edit-lienImage').val(movieElement.find('.lienImage').attr('src'));
-        $('#edit-origine').val(movieElement.find('.origine').text());
+
+        $('#edit-origine').val(movieElement.find('.origineMovie').text());
 
         $('#edit-movie-form').show();
     });
@@ -262,6 +248,8 @@ $(document).ready(function () {
             origine: $('#edit-origine').val()
         };
 
+
+        // requete PUT pour modifier le film
         $.ajax({
             url: `http://localhost:8080/movies/${movieId}`,
             type: 'PUT',
@@ -272,9 +260,8 @@ $(document).ready(function () {
                     alert("Film modifié avec succès !");
                     $('#edit-movie-form').hide();
                     $('#load-movies-btn').click();
-                } else {
-                    alert('Erreur lors de la modification du film : ' + response.error);
                 }
+                // si erreur modifier ici
             },
             error: function (xhr, status, error) {
                 console.error("Erreur :", error);

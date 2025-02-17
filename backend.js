@@ -87,10 +87,6 @@ app.post('/movies', (req, res) => {
     const params = [nom, realisateur, compagnie, dateDeSortie, note, notePublic, description, lienImage, origine, categorie];
 
     db.run(sql, params, function (err) {
-        if (err) {
-            res.status(500).json({ success: false, error: err.message });
-            return;
-        }
         res.json({ success: true, id: this.lastID });
     });
 });
@@ -102,10 +98,6 @@ app.delete('/movies/:id', (req, res) => {
     console.log("OOOHHH EHHH Y'A UN TRUK LA!!!!!!!!");
 
     db.run("DELETE FROM movies WHERE id = ?", [movieId], function (err) {
-        if (err) {
-            res.status(500).json({ success: false, error: err.message });
-            return;
-        }
         res.json({ success: true });
     });
 });
