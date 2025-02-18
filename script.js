@@ -133,6 +133,10 @@ $(document).ready(function () {
         $('#add-movie').toggle();
     });
 
+    $('#minBtn').click(function () {
+        $('min-Range').toggle();
+    });
+
     $('#load-movies-btn').click(function () {
         const selectedCountry = $('#drop').val();
         const selectedType = $('#categorie-drop').val();
