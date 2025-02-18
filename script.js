@@ -130,15 +130,15 @@ $(document).ready(function () {
     });
 
     $('#add-film-btn').click(function () {
-        $('#add-movie').toggle();
+        $('#filmForm').toggle();
     });
 
     $('#minBtn').click(function () {
         $('min-Range').toggle();
     });
 
-    $('#load-movies-btn').click(function () {
-        const selectedCountry = $('#drop').val();
+    $('#chargerFilms').click(function () {
+        const selectedCountry = $('#origineChoix').val();
         const selectedType = $('#categorie-drop').val();
 
         // ici je construis l'url qui va servir a faire les requêtes selon les spécifications
@@ -263,7 +263,7 @@ $(document).ready(function () {
                 if (response.success) {
                     alert("Film modifié avec succès !");
                     $('#edit-movie-form').hide();
-                    $('#load-movies-btn').click();
+                    $('#chargerFilms').click();
                 }
                 // si erreur modifier ici
             },
@@ -278,7 +278,7 @@ $(document).ready(function () {
         $('#edit-movie-form').hide();
     });
 
-    $('#add-movie').submit(function (event) {
+    $('#filmForm').submit(function (event) {
         event.preventDefault();
 
         const formData = {
@@ -301,7 +301,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
                     alert("AAAAAH");
-                    $('#add-movie-form')[0].reset();
+                    $('#filmForm')[0].reset();
                 } else {
                     alert('Erreur lors de l\'ajout du film : ' + response.error);
                 }

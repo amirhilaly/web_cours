@@ -12,34 +12,11 @@
 </head>
 
 <body>
-    <!-- ici c mes p'tit boutons :) -->
-
-    <div style="text-align: center; margin: 20px 0;">
-        <button id="gameBtn" onclick="rediriger()">Click me!</button>
-        <button id="add-film-btn">Ajouter un film?</button>
-        <button id="minBtn">Note minimale</button>
-        <button id="maxBtn">Note maximale</button>
-
-        <!--
-        <button id="classique-btn">Classique?</button>
-        <button id="navet-btn">Navet?</button><br><br><br> -->
-
-    </div>
-
-    <div id="min-Range" style="display: none;">
-        <label>Choisir la note max</label>
-        <input type="range" id="noteMin" min="0" max="5">
-    </div>
-
-    <div id="max-Range" style="display: none;">
-        <label>Choisir la note max</label>
-        <input type="range" id="noteMax" min="0" max="5">
-    </div>
+    <button id="add-film-btn">Ajouter</button>
 
 
 
-
-    <form id="add-movie" style="display: none;">
+    <form id="filmForm" style="display: none;">
         <label>Nom du film:</label>
         <input type="text" id="nomFORM" name="nom"><br>
         <label>Date de sortie:</label>
@@ -108,7 +85,7 @@
         <option value="navet">Navet</option>
     </select>
 
-    <select name="drop" id="drop">
+    <select name="drop" id="origineChoix">
         <option value="all">ALL</option>
         <option value="France">France</option>
         <option value="Angleterre">Angleterre</option>
@@ -116,11 +93,7 @@
         <option value="Pays-Bas">Pays-Bas</option>
     </select>
 
-    <p id="diff"></p>
-
-    </br></br></br></br>
-
-    <button id="load-movies-btn">Charger les films</button>
+    <button id="chargerFilms">Charger les films</button>
     <template id="movie-template">
         <div class="movie">
             <p>Nom: <span class="nom">Name</span></p>
