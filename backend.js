@@ -26,40 +26,38 @@ module.exports = app;
 
 
 app.get('/movies', (req, res) => {
-    const { origine, categorie, noteMax } = req.query;
+    const { origine, categorie, noteMin, noteMax } = req.query;
 
-    let sql = "SELECT * FROM movies WHERE 1=1";
-    const params = [];
+    let sql = 'SELECT * FROM movies WHERE 1=1';
+    let params = [];
 
-    if (origine && origine !== "all") {
-        sql += " AND origine = ?";
+    if (origine && origine !== 'all') {
+        sql += ' AND origine = ?';
         params.push(origine);
     }
 
-    if (categorie && categorie !== "standard") {
-        sql += " AND categorie = ?";
+    if (categorie && categorie !== 'standard') {
+        sql += ' AND categorie = ?';
         params.push(categorie);
     }
 
-    /*
     if (noteMin) {
-        sql += " AND note >= ?";
+        sql += ' AND note >= ?';
         params.push(parseFloat(noteMin));
-    } else if (noteMax) {
-        sql += " AND note <= ?";
+    }
+
+    if (noteMax) {
+        sql += ' AND note <= ?';
         params.push(parseFloat(noteMax));
     }
-    */
 
-    db.all(sql, params, (err, rows) => {
+    db.all(sql, params, (err, movies) => {
         if (err) {
-            res.status(500).json({ error: err.message });
-            return;
+            return res.status(500).json({ success: false, error: err.message });
         }
-        res.json(rows);
+        res.json(movies);
     });
 });
-
 
 app.put('/movies/:id', (req, res) => {
     const movieId = req.params.id;

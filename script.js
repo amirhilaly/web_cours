@@ -134,16 +134,33 @@ $(document).ready(function () {
     });
 
     $('#minBtn').click(function () {
-        $('min-Range').toggle();
+        $('#min-Range').toggle();
     });
+
+    $('#maxBtn').click(function () {
+        $('#max-Range').toggle();
+
+    });
+
 
     $('#load-movies-btn').click(function () {
         const selectedCountry = $('#drop').val();
         const selectedType = $('#categorie-drop').val();
-
+        const noteMin = $('#noteMin').val();
+        const noteMax = $('#noteMax').val();
         // ici je construis l'url qui va servir a faire les requêtes selon les spécifications
         // donner par l'utilisateur
         let url = `http://localhost:8080/movies?origine=${selectedCountry}&categorie=${selectedType}`;
+
+
+        if (noteMin) {
+            url += `&noteMin=${noteMin}`;
+        }
+        if (noteMax) {
+            url += `&noteMax=${noteMax}`;
+        }
+
+        console.log("Voici l'url: ", url);
 
         //        if ($('#navet-range-bomb').is(':visible')) {
         //          url += `&noteMax=${navetValue}`;
