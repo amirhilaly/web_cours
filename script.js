@@ -143,7 +143,7 @@ $(document).ready(function () {
 
         // ici je construis l'url qui va servir a faire les requêtes selon les spécifications
         // donner par l'utilisateur
-        let url = `http://localhost:8080/movies?origine=${selectedCountry}&categorie=${selectedType}`;
+        let url = `https://backendmovies-p0jief8yk-amirhilalys-projects.vercel.app/api/movies?origine=${selectedCountry}&categorie=${selectedType}`;
 
         //        if ($('#navet-range-bomb').is(':visible')) {
         //          url += `&noteMax=${navetValue}`;
@@ -220,7 +220,7 @@ $(document).ready(function () {
     $(document).on("click", ".bomb", function () {
         console.log("AAAAAAH BOMBE ALERTE A LA BOOOOMBEEEE");
         const movieId = $(this).data("id");
-        fetch(`http://localhost:8080/movies/${movieId}`, {
+        fetch(`https://backendmovies-p0jief8yk-amirhilalys-projects.vercel.app/api/movies/${movieId}`, {
             method: "DELETE"
         })
             .then(response => response.json())
@@ -255,7 +255,7 @@ $(document).ready(function () {
 
         // requete PUT pour modifier le film
         $.ajax({
-            url: `http://localhost:8080/movies/${movieId}`,
+            url: `https://backendmovies-p0jief8yk-amirhilalys-projects.vercel.app/api/movies/${movieId}`,
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify(formData),
@@ -294,7 +294,7 @@ $(document).ready(function () {
         };
 
         $.ajax({
-            url: 'http://localhost:8080/movies',
+            url: 'https://backendmovies-p0jief8yk-amirhilalys-projects.vercel.app/api/movies',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(formData),
